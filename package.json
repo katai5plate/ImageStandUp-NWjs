@@ -1,0 +1,21 @@
+{
+  "name": "ImageStandUp-NWjs",
+  "version": "1.0.0",
+  "main": "index.html",
+  "repository": "https://github.com/katai5plate/ImageStandUp-NWjs",
+  "author": "katai5plate <katai5plate.sub@gmail.com>",
+  "window": {
+    "title": "ImageStandUp",
+    "width": 720,
+    "height": 720
+  },
+  "license": "MIT",
+  "scripts": {
+    "start": "nw"
+  },
+  "dependencies": {
+    "jimp": "^0.6.0",
+    "nw": "0.36.0-sdk",
+    "path": "^0.12.7"
+  }
+}
