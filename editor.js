@@ -91,6 +91,7 @@ const update = mouseEvent => {
   }
 };
 const convert = async () => {
+  alert("START!");
   label.innerText = "Converting...";
   for (let f of dirList) {
     const r = converter.read(parse(f).name);
@@ -99,6 +100,8 @@ const convert = async () => {
     console.log(1);
   }
   label.innerText = "OK";
+  alert("FINISH!");
+  process.exit(1);
 };
 
 setup();
