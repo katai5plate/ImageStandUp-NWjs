@@ -94,20 +94,40 @@ const convert = async () => {
   alert("START!");
   label.innerText = "Converting...";
   console.log("dirList:", dirList);
+  logSystem.start(dirList)
   for (let i in dirList) {
     const f = dirList[i];
     try {
+      logSystem.progress(f, i);
       const r = converter.read(parse(f).name);
       await converter.conv2(r);
-      console.log("progress", i, "/", dirList.length, {r, f});
+      logSystem.done(f, i);
     } catch (e) {
-      console.warn("SKIP FILE", {r, f});
+      console.warn("SKIP FILE!", e);
     }
   }
   label.innerText = "OK";
   alert("FINISH!");
   process.exit(1);
 };
+
+const logSystem = {
+  data: {},
+  progressLength: 0,
+  start: (list) => {
+    logSystem.data = list.reduce((p, c) => ({ ...p, [c]: false }), {});
+    logSystem.progressLength = list.length;
+    fs.writeFileSync("log.json", "");
+  },
+  progress: (fileName, index) => {
+    console.log("progress", index, "/", logSystem.progressLength, ":", fileName);
+  },
+  done: (fileName, index) => {
+    console.log("done", index, "/", logSystem.progressLength, ":", fileName);
+    logSystem.data[fileName] = true;
+    fs.writeFileSync("log.json", JSON.stringify(logSystem.data, null, " "));
+  }
+}
 
 setup();
 
