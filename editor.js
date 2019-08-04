@@ -93,11 +93,16 @@ const update = mouseEvent => {
 const convert = async () => {
   alert("START!");
   label.innerText = "Converting...";
-  for (let f of dirList) {
-    const r = converter.read(parse(f).name);
-    console.log(r);
-    await converter.conv2(r);
-    console.log(1);
+  console.log("dirList:", dirList);
+  for (let i in dirList) {
+    const f = dirList[i];
+    try {
+      const r = converter.read(parse(f).name);
+      await converter.conv2(r);
+      console.log("progress", i, "/", dirList.length, {r, f});
+    } catch (e) {
+      console.warn("SKIP FILE", {r, f});
+    }
   }
   label.innerText = "OK";
   alert("FINISH!");
